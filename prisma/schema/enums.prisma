@@ -8,3 +8,13 @@ enum UserStatus {
     ACTIVE
     BANNED
 }
+
+enum PropertyType {
+    APARTMENT
+    HOUSE
+    STUDIO
+    VILLA
+    ROOM
+    OFFICE
+    OTHER
+}
