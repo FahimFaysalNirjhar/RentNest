@@ -46,6 +46,24 @@ const registerUser = async (payload: RegisterUserPayload) => {
   return user;
 };
 
+const getMyProfile = async (userId: string) => {
+  const user = await prisma.user.findUniqueOrThrow({
+    where: {
+      id: userId,
+    },
+    omit: {
+      password: true,
+    },
+    include: {
+      properties: true,
+      rentalRequests: true,
+    },
+  });
+
+  return user;
+};
+
 export const userService = {
   registerUser,
+  getMyProfile,
 };
