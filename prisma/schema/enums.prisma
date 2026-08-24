@@ -26,3 +26,9 @@ enum RentalRequestStatus {
   CANCELLED
 
 }
+
+enum PaymentStatus {
+    PENDING
+    PAID
+    CANCELLED
+}
