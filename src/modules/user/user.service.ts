@@ -40,6 +40,7 @@ const registerUser = async (payload: RegisterUserPayload) => {
     include: {
       properties: true,
       rentalRequests: true,
+      reviews: true,
     },
   });
 
@@ -57,6 +58,7 @@ const getMyProfile = async (userId: string) => {
     include: {
       properties: true,
       rentalRequests: true,
+      reviews: true,
     },
   });
 

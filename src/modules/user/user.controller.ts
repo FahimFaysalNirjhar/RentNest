@@ -13,7 +13,7 @@ const registerUser = catchAsync(
       success: true,
       statusCode: HttpStatus.CREATED,
       message: "User registered successfully",
-      data: user,
+      data: { user },
     });
   },
 );
@@ -27,7 +27,7 @@ const getMyProfile = catchAsync(
       success: true,
       statusCode: HttpStatus.OK,
       message: "User Profile fetched successfully",
-      data: profile,
+      data: { profile },
     });
   },
 );
