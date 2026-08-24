@@ -13,4 +13,9 @@ model RentalRequest {
     payment Payment?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    @@index([tenantId])
+    @@index([propertyId])
+    @@index([status])
+    @@map("rentalRequest")
 }
