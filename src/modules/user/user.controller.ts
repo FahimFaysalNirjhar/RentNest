@@ -7,7 +7,7 @@ import HttpStatus from "http-status";
 const registerUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const payload = req.body;
-    const user = await userService.registerUser;
+    const user = await userService.registerUser(payload);
 
     sendResponse(res, {
       success: true,
