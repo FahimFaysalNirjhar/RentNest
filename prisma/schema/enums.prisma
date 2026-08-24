@@ -18,3 +18,11 @@ enum PropertyType {
     OFFICE
     OTHER
 }
+
+enum RentalRequestStatus {
+    REQUESTED
+  ACCEPTED
+  COMPLETED
+  CANCELLED
+
+}
