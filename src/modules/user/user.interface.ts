@@ -6,6 +6,16 @@ export interface RegisterUserPayload {
   password: string;
   role: UserRole;
   profilePhoto?: string;
+  phone: string;
+  address: string;
+}
+
+export interface UpdatedUserPayload {
+  name?: string;
+  email?: string;
+  password?: string;
+  role?: UserRole;
+  profilePhoto?: string;
   phone?: string;
   address?: string;
 }

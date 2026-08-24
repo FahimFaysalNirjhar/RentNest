@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "../../lib/prisma";
-import { RegisterUserPayload } from "./user.interface";
+import { RegisterUserPayload, UpdatedUserPayload } from "./user.interface";
 import config from "../../config";
 
 const registerUser = async (payload: RegisterUserPayload) => {
@@ -65,7 +65,36 @@ const getMyProfile = async (userId: string) => {
   return user;
 };
 
+const updateMyProfile = async (
+  userId: string,
+  payload: Partial<UpdatedUserPayload>,
+) => {
+  const { name, email, profilePhoto, phone, address } = payload;
+
+  const updatedUser = await prisma.user.update({
+    where: { id: userId },
+    data: {
+      name,
+      email,
+      profilePhoto,
+      phone,
+      address,
+    },
+    omit: {
+      password: true,
+    },
+    include: {
+      properties: true,
+      rentalRequests: true,
+      reviews: true,
+    },
+  });
+
+  return updatedUser;
+};
+
 export const userService = {
   registerUser,
   getMyProfile,
+  updateMyProfile,
 };
