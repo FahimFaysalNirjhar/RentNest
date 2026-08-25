@@ -8,3 +8,7 @@ export interface IUserQuery extends UserWhereInput {
   page?: string;
   limit?: string;
 }
+
+export interface UpdateUserStatusPayload {
+  status: UserStatus;
+}

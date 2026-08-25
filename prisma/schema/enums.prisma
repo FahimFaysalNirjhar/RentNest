@@ -1,34 +1,33 @@
 enum UserRole {
-    TENANT
-    LANDLORD
-    ADMIN
+  TENANT
+  LANDLORD
+  ADMIN
 }
 
 enum UserStatus {
-    ACTIVE
-    BANNED
+  ACTIVE
+  BANNED
 }
 
 enum PropertyType {
-    APARTMENT
-    HOUSE
-    STUDIO
-    VILLA
-    ROOM
-    OFFICE
-    OTHER
+  APARTMENT
+  HOUSE
+  STUDIO
+  VILLA
+  ROOM
+  OFFICE
+  OTHER
 }
 
 enum RentalRequestStatus {
-    REQUESTED
+  REQUESTED
   ACCEPTED
   COMPLETED
   CANCELLED
-
 }
 
 enum PaymentStatus {
-    PENDING
-    PAID
-    CANCELLED
+  PENDING
+  PAID
+  CANCELLED
 }

@@ -1,7 +1,7 @@
 import { UserRole, UserStatus } from "../../../generated/prisma/enums";
 import { UserWhereInput } from "../../../generated/prisma/models";
 import { prisma } from "../../lib/prisma";
-import { IUserQuery } from "./admin.interface";
+import { IUserQuery, UpdateUserStatusPayload } from "./admin.interface";
 
 const getAllUsers = async (query: IUserQuery) => {
   const limit = query.limit ? Number(query.limit) : 10;
@@ -74,6 +74,39 @@ const getAllUsers = async (query: IUserQuery) => {
   };
 };
 
+const updateUserStatus = async (
+  userId: string,
+  payload: UpdateUserStatusPayload,
+) => {
+  const { status } = payload;
+
+  const user = await prisma.user.findUniqueOrThrow({
+    where: {
+      id: userId,
+    },
+  });
+
+  const updatedUser = await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      status,
+    },
+    omit: {
+      password: true,
+    },
+    include: {
+      properties: true,
+      rentalRequests: true,
+      reviews: true,
+    },
+  });
+
+  return updatedUser;
+};
+
 export const adminService = {
   getAllUsers,
+  updateUserStatus,
 };

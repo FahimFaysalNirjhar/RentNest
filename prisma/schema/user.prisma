@@ -1,21 +1,21 @@
 model User {
-    id String @id @default(uuid())
-    name String
-    email String @unique
-    password String
-    profilePhoto String?
-    phone String?
-    address String?
-    role UserRole 
-    status UserStatus @default(ACTIVE)
-    properties Property[]
-    rentalRequests RentalRequest[]
-    reviews Review[]
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id             String          @id @default(uuid())
+  name           String
+  email          String          @unique
+  password       String
+  profilePhoto   String?
+  phone          String?
+  address        String?
+  role           UserRole
+  status         UserStatus      @default(ACTIVE)
+  properties     Property[]
+  rentalRequests RentalRequest[]
+  reviews        Review[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
 
-    @@index([email])
-    @@index([role])
-    @@index([status])
-    @@map("user")
+  @@index([email])
+  @@index([role])
+  @@index([status])
+  @@map("user")
 }

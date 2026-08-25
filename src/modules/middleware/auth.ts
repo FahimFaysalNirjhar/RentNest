@@ -37,6 +37,7 @@ export const auth = (...requiredRoles: UserRole[]) => {
     const { name, email, id, role } = verifiedToken.data as JwtPayload;
 
     if (requiredRoles.length && !requiredRoles.includes(role)) {
+      throw new Error("You do not have permission to access this resource");
     }
 
     const user = await prisma.user.findUniqueOrThrow({
