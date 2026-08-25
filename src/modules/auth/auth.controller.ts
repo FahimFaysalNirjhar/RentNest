@@ -3,6 +3,7 @@ import { catchAsync } from "../utils/catchAsync";
 import { authService } from "./auth.service";
 import { sendResponse } from "../utils/sendResponse";
 import HttpStatus from "http-status";
+import { adminService } from "../admin/admin.service";
 
 const loginUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {

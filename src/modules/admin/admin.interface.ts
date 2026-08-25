@@ -12,3 +12,8 @@ export interface IUserQuery extends UserWhereInput {
 export interface UpdateUserStatusPayload {
   status: UserStatus;
 }
+
+export interface CreateCategoryPayload {
+  name: string;
+  description?: string;
+}
