@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import { userRouter } from "./modules/user/user.route";
 import { authRouter } from "./modules/auth/auth.route";
 import { adminRouter } from "./modules/admin/admin.route";
+import { globalErrorHandler } from "./modules/utils/globalErrorHandler";
 
 const app: Application = express();
 
@@ -30,5 +31,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
+
+app.use(globalErrorHandler);
 
 export default app;
