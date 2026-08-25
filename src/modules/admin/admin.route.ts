@@ -30,4 +30,10 @@ router.patch(
   adminController.updateCategory,
 );
 
+router.delete(
+  "/categories/:id",
+  auth(UserRole.ADMIN),
+  adminController.deleteCategory,
+);
+
 export const adminRouter = router;

@@ -165,9 +165,22 @@ const updateCategory = async (id: string, payload: CategoryPayload) => {
   return updateCategory;
 };
 
+const deleteCategory = async (id: string) => {
+  const category = await prisma.category.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+
+  await prisma.category.delete({
+    where: { id: category.id },
+  });
+};
+
 export const adminService = {
   getAllUsers,
   updateUserStatus,
   createCategory,
   updateCategory,
+  deleteCategory,
 };

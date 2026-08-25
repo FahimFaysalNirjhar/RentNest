@@ -61,10 +61,25 @@ const updateCategory = catchAsync(
     });
   },
 );
+const deleteCategory = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id as string;
+
+    await adminService.deleteCategory(id);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "Category deleted successfully",
+      data: null,
+    });
+  },
+);
 
 export const adminController = {
   getAllUsers,
   updateUserStatus,
   createCategory,
   updateCategory,
+  deleteCategory,
 };
