@@ -7,6 +7,7 @@ import { authRouter } from "./modules/auth/auth.route";
 import { adminRouter } from "./modules/admin/admin.route";
 import { globalErrorHandler } from "./modules/utils/globalErrorHandler";
 import { notFound } from "./modules/middleware/notFound";
+import { categoryRouter } from "./modules/categories/category.route";
 
 const app: Application = express();
 
@@ -32,6 +33,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/categories", categoryRouter);
 
 app.use(notFound);
 app.use(globalErrorHandler);
