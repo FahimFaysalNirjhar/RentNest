@@ -44,9 +44,9 @@ export const auth = (...requiredRoles: UserRole[]) => {
       where: { id },
     });
 
-    if (!user) {
-      throw new Error("User not Found! Please login again");
-    }
+    // if (!user) {
+    //   throw new Error("User not Found! Please login again");
+    // }
 
     if (user.status === "BANNED") {
       throw new Error("Your account has been banned. Please contact support");
