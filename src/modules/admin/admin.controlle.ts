@@ -47,8 +47,24 @@ const createCategory = catchAsync(
   },
 );
 
+const updateCategory = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id as string;
+    const payload = req.body;
+    const result = await adminService.updateCategory(id, payload);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "Category updated successfully",
+      data: result,
+    });
+  },
+);
+
 export const adminController = {
   getAllUsers,
   updateUserStatus,
   createCategory,
+  updateCategory,
 };

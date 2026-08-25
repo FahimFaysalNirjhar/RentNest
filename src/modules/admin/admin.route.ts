@@ -24,4 +24,10 @@ router.post(
   adminController.createCategory,
 );
 
+router.patch(
+  "/categories/:id",
+  auth(UserRole.ADMIN),
+  adminController.updateCategory,
+);
+
 export const adminRouter = router;

@@ -2,7 +2,7 @@ import { UserRole, UserStatus } from "../../../generated/prisma/enums";
 import { UserWhereInput } from "../../../generated/prisma/models";
 import { prisma } from "../../lib/prisma";
 import {
-  CreateCategoryPayload,
+  CategoryPayload,
   IUserQuery,
   UpdateUserStatusPayload,
 } from "./admin.interface";
@@ -110,7 +110,7 @@ const updateUserStatus = async (
   return updatedUser;
 };
 
-const createCategory = async (payload: CreateCategoryPayload) => {
+const createCategory = async (payload: CategoryPayload) => {
   const { name, description } = payload;
   const existingCategory = await prisma.category.findFirst({
     where: {
@@ -135,8 +135,39 @@ const createCategory = async (payload: CreateCategoryPayload) => {
   return category;
 };
 
+const updateCategory = async (id: string, payload: CategoryPayload) => {
+  const category = await prisma.category.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+
+  if (payload.name) {
+    const existingCategory = await prisma.category.findFirst({
+      where: {
+        name: {
+          equals: payload.name,
+          mode: "insensitive",
+        },
+      },
+    });
+
+    if (existingCategory) {
+      throw new Error("Category name already exists.");
+    }
+  }
+
+  const updateCategory = await prisma.category.update({
+    where: { id: category.id },
+    data: payload,
+  });
+
+  return updateCategory;
+};
+
 export const adminService = {
   getAllUsers,
   updateUserStatus,
   createCategory,
+  updateCategory,
 };

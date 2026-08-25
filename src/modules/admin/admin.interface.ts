@@ -13,7 +13,7 @@ export interface UpdateUserStatusPayload {
   status: UserStatus;
 }
 
-export interface CreateCategoryPayload {
+export interface CategoryPayload {
   name: string;
   description?: string;
 }
