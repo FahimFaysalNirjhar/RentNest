@@ -11,4 +11,10 @@ router.post(
   landlordController.createProperties,
 );
 
+router.put(
+  "/properties/:id",
+  auth(UserRole.LANDLORD),
+  landlordController.updateProperty,
+);
+
 export const landlordRouter = router;

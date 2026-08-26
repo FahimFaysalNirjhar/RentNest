@@ -1,5 +1,8 @@
 import { prisma } from "../../lib/prisma";
-import { CreatePropertiesPayload } from "./landlord.instance";
+import {
+  CreatePropertiesPayload,
+  UpdatePropertiesPayload,
+} from "./landlord.instance";
 
 const createProperties = async (
   userId: string,
@@ -41,9 +44,56 @@ const createProperties = async (
       categoryId: payload.categoryId,
       landlordId: landlord.id,
     },
+    include: {
+      category: true,
+      landlord: {
+        omit: {
+          password: true,
+        },
+      },
+    },
   });
 
   return property;
 };
 
-export const landlordService = { createProperties };
+const updateProperty = async (
+  userId: string,
+  propertyId: string,
+  payload: UpdatePropertiesPayload,
+) => {
+  const landlord = await prisma.user.findUniqueOrThrow({
+    where: {
+      id: userId,
+    },
+  });
+
+  const property = await prisma.property.findUniqueOrThrow({
+    where: { id: propertyId },
+  });
+
+  if (property.landlordId !== landlord.id) {
+    throw new Error("You are not authorized to update this property.");
+  }
+
+  if (payload.categoryId) {
+    await prisma.category.findUniqueOrThrow({
+      where: { id: payload.categoryId },
+    });
+  }
+
+  const updatedProperty = await prisma.property.update({
+    where: { id: property.id },
+    data: payload,
+    include: {
+      category: true,
+      landlord: {
+        omit: {
+          password: true,
+        },
+      },
+    },
+  });
+};
+
+export const landlordService = { createProperties, updateProperty };
