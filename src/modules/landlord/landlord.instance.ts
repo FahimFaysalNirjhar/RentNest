@@ -18,8 +18,8 @@ export interface CreatePropertiesPayload {
   rent: number;
   securityDeposit?: number;
 
-  amenities: string[];
-  images: string[];
+  amenities?: string[];
+  images?: string[];
 
   isAvailable?: boolean;
 

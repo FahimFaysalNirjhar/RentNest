@@ -94,6 +94,30 @@ const updateProperty = async (
       },
     },
   });
+
+  return updatedProperty;
 };
 
-export const landlordService = { createProperties, updateProperty };
+const deleteProperty = async (userId: string, propertyId: string) => {
+  const landlord = await prisma.user.findUniqueOrThrow({
+    where: { id: userId },
+  });
+
+  const property = await prisma.property.findUniqueOrThrow({
+    where: { id: propertyId },
+  });
+
+  if (property.landlordId !== landlord.id) {
+    throw new Error("You are not authorized to delete this service.");
+  }
+
+  await prisma.property.delete({
+    where: { id: property.id },
+  });
+};
+
+export const landlordService = {
+  createProperties,
+  updateProperty,
+  deleteProperty,
+};
