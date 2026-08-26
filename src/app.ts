@@ -9,6 +9,7 @@ import { globalErrorHandler } from "./modules/utils/globalErrorHandler";
 import { notFound } from "./modules/middleware/notFound";
 import { categoryRouter } from "./modules/categories/category.route";
 import { landlordRouter } from "./modules/landlord/landlord.route";
+import { propertyRouter } from "./modules/properties/property.route";
 
 const app: Application = express();
 
@@ -36,6 +37,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/landlord", landlordRouter);
+app.use("/api/properties", propertyRouter);
 
 app.use(notFound);
 app.use(globalErrorHandler);
