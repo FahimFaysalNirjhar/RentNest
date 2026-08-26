@@ -23,6 +23,13 @@ const getSingleProperty = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id as string;
     const result = await propertyService.getSingleProperty(id);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "Properties retrieved successfully",
+      data: result,
+    });
   },
 );
 
