@@ -11,4 +11,10 @@ router.get("/", auth(UserRole.TENANT), tenantController.getAllRequest);
 
 router.get("/:id", auth(UserRole.TENANT), tenantController.getSingleRequest);
 
+router.patch(
+  "/:id/cancel",
+  auth(UserRole.TENANT),
+  tenantController.cancelRequest,
+);
+
 export const tenantRouter = router;

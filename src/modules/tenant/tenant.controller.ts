@@ -50,8 +50,25 @@ const getSingleRequest = catchAsync(
   },
 );
 
+const cancelRequest = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id as string;
+    const id = req.params.id as string;
+
+    const result = await tenantService.cancelRequest(userId, id);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "Rental Request cancelled successfully",
+      data: result,
+    });
+  },
+);
+
 export const tenantController = {
   createRequest,
   getAllRequest,
   getSingleRequest,
+  cancelRequest,
 };

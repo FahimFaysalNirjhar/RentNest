@@ -140,4 +140,41 @@ const getSingleRequest = async (userId: string, requestId: string) => {
   return request;
 };
 
-export const tenantService = { createRequest, getAllRequest, getSingleRequest };
+const cancelRequest = async (userId: string, id: string) => {
+  const rentalRequest = await prisma.rentalRequest.findUniqueOrThrow({
+    where: {
+      tenantId: userId,
+      id,
+    },
+  });
+
+  if (rentalRequest.status === "COMPLETED") {
+    throw new Error("Completed rental request cannot be cancelled.");
+  }
+
+  if (rentalRequest.status === "CANCELLED") {
+    throw new Error("Rental Request is already cancelled.");
+  }
+
+  if (rentalRequest.status === "ACCEPTED") {
+    throw new Error("An ongoing rental request cannot be cancelled.");
+  }
+
+  const updateRequest = await prisma.rentalRequest.update({
+    where: {
+      id: rentalRequest.id,
+    },
+    data: {
+      status: "CANCELLED",
+    },
+  });
+
+  return updateRequest;
+};
+
+export const tenantService = {
+  createRequest,
+  getAllRequest,
+  getSingleRequest,
+  cancelRequest,
+};
