@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../utils/catchAsync";
-import { rentalRequestService } from "./tenant.service";
+import { tenantService } from "./tenant.service";
 import { sendResponse } from "../utils/sendResponse";
 import HttpStatus from "http-status";
 
@@ -9,7 +9,7 @@ const createRequest = catchAsync(
     const userId = req.user?.id as string;
     const payload = req.body;
 
-    const result = await rentalRequestService.createRequest(userId, payload);
+    const result = await tenantService.createRequest(userId, payload);
 
     sendResponse(res, {
       success: true,
@@ -20,4 +20,4 @@ const createRequest = catchAsync(
   },
 );
 
-export const rentalRequestController = { createRequest };
+export const tenantController = { createRequest };

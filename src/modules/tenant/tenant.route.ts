@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { auth } from "../middleware/auth";
 import { UserRole } from "../../../generated/prisma/enums";
-import { rentalRequestController } from "./tenant.controller";
+import { tenantController } from "./tenant.controller";
 
 const router = Router();
 
-router.post("/", auth(UserRole.TENANT), rentalRequestController.createRequest);
+router.post("/", auth(UserRole.TENANT), tenantController.createRequest);
 
-export const rentalRequestRouter = router;
+export const tenantRouter = router;

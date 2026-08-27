@@ -10,7 +10,7 @@ import { notFound } from "./modules/middleware/notFound";
 import { categoryRouter } from "./modules/categories/category.route";
 import { landlordRouter } from "./modules/landlord/landlord.route";
 import { propertyRouter } from "./modules/properties/property.route";
-import { rentalRequestRouter } from "./modules/tenant/tenant.route";
+import { tenantRouter } from "./modules/tenant/tenant.route";
 
 const app: Application = express();
 
@@ -39,7 +39,7 @@ app.use("/api/admin", adminRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/landlord", landlordRouter);
 app.use("/api/properties", propertyRouter);
-app.use("/api/rentals", rentalRequestRouter);
+app.use("/api/rentals", tenantRouter);
 
 app.use(notFound);
 app.use(globalErrorHandler);

@@ -85,4 +85,4 @@ const createRequest = async (
   return rentalRequest;
 };
 
-export const rentalRequestService = { createRequest };
+export const tenantService = { createRequest };
