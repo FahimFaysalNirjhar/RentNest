@@ -113,4 +113,31 @@ const getAllRequest = async (id: string) => {
   return requests;
 };
 
-export const tenantService = { createRequest, getAllRequest };
+const getSingleRequest = async (userId: string, requestId: string) => {
+  const request = await prisma.rentalRequest.findUniqueOrThrow({
+    where: {
+      id: requestId,
+      tenantId: userId,
+    },
+    include: {
+      tenant: {
+        omit: {
+          password: true,
+        },
+      },
+      property: {
+        include: {
+          landlord: {
+            omit: {
+              password: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return request;
+};
+
+export const tenantService = { createRequest, getAllRequest, getSingleRequest };

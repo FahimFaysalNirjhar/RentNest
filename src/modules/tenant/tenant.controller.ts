@@ -34,4 +34,24 @@ const getAllRequest = catchAsync(
   },
 );
 
-export const tenantController = { createRequest, getAllRequest };
+const getSingleRequest = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id as string;
+    const requestId = req.params.id as string;
+
+    const result = await tenantService.getSingleRequest(userId, requestId);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "Request retrieved successfully",
+      data: result,
+    });
+  },
+);
+
+export const tenantController = {
+  createRequest,
+  getAllRequest,
+  getSingleRequest,
+};

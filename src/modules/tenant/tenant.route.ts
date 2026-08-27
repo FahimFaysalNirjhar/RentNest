@@ -9,4 +9,6 @@ router.post("/", auth(UserRole.TENANT), tenantController.createRequest);
 
 router.get("/", auth(UserRole.TENANT), tenantController.getAllRequest);
 
+router.get("/:id", auth(UserRole.TENANT), tenantController.getSingleRequest);
+
 export const tenantRouter = router;
