@@ -1,7 +1,9 @@
+import { RentalRequestStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import {
   CreatePropertiesPayload,
   UpdatePropertiesPayload,
+  UpdateRentalRequestPayload,
 } from "./landlord.instance";
 
 const createProperties = async (
@@ -143,9 +145,59 @@ const getRentalRequests = async (landlordId: string) => {
   return requests;
 };
 
+const updateRentalRequestStatus = async (
+  landlordId: string,
+  requestId: string,
+  payload: UpdateRentalRequestPayload,
+) => {
+  const rentalRequest = await prisma.rentalRequest.findFirst({
+    where: {
+      id: requestId,
+      property: {
+        landlordId,
+      },
+    },
+  });
+
+  if (!rentalRequest) {
+    throw new Error("Rental request not found.");
+  }
+
+  if (
+    payload.status !== RentalRequestStatus.ACCEPTED &&
+    payload.status !== RentalRequestStatus.CANCELLED
+  ) {
+    throw new Error("Status can only be ACCEPTED or REJECTED.");
+  }
+
+  const updateRequest = await prisma.rentalRequest.update({
+    where: {
+      id: requestId,
+    },
+    data: {
+      status: payload.status,
+    },
+    include: {
+      tenant: {
+        omit: {
+          password: true,
+        },
+      },
+      property: {
+        include: {
+          category: true,
+        },
+      },
+    },
+  });
+
+  return updateRequest;
+};
+
 export const landlordService = {
   createProperties,
   updateProperty,
   deleteProperty,
   getRentalRequests,
+  updateRentalRequestStatus,
 };

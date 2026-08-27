@@ -1,4 +1,7 @@
-import { PropertyType } from "../../../generated/prisma/enums";
+import {
+  PropertyType,
+  RentalRequestStatus,
+} from "../../../generated/prisma/enums";
 
 export interface CreatePropertiesPayload {
   title: string;
@@ -48,4 +51,8 @@ export interface UpdatePropertiesPayload {
 
   isAvailable?: boolean;
   categoryId?: string;
+}
+
+export interface UpdateRentalRequestPayload {
+  status: RentalRequestStatus;
 }

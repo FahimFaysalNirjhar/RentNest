@@ -23,12 +23,14 @@ router.delete(
   landlordController.deleteProperty,
 );
 
-// rental request api
+// rental request related api
 
 router.get(
   "/requests",
   auth(UserRole.LANDLORD),
   landlordController.getRentalRequests,
 );
+
+router.patch("/requests/:id", landlordController.updateRentalRequestStatus);
 
 export const landlordRouter = router;
