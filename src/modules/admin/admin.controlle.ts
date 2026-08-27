@@ -91,6 +91,19 @@ const getAllRentalRequest = catchAsync(
   },
 );
 
+const getAllProperties = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const result = await adminService.getAllProperties();
+
+    sendResponse(res, {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "Properties retrieved successfully",
+      data: result,
+    });
+  },
+);
+
 export const adminController = {
   getAllUsers,
   updateUserStatus,
@@ -98,4 +111,5 @@ export const adminController = {
   updateCategory,
   deleteCategory,
   getAllRentalRequest,
+  getAllProperties,
 };

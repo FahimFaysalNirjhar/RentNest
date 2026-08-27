@@ -44,4 +44,11 @@ router.get(
   adminController.getAllRentalRequest,
 );
 
+//  properties related api
+router.get(
+  "/properties",
+  auth(UserRole.ADMIN),
+  adminController.getAllProperties,
+);
+
 export const adminRouter = router;

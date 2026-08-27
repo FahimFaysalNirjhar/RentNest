@@ -204,6 +204,30 @@ const getAllRentalRequest = async () => {
   return rentalRequest;
 };
 
+const getAllProperties = async () => {
+  const properties = await prisma.property.findMany({
+    include: {
+      landlord: {
+        omit: {
+          password: true,
+        },
+      },
+      category: true,
+      _count: {
+        select: {
+          rentalRequests: true,
+          reviews: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return properties;
+};
+
 export const adminService = {
   getAllUsers,
   updateUserStatus,
@@ -211,4 +235,5 @@ export const adminService = {
   updateCategory,
   deleteCategory,
   getAllRentalRequest,
+  getAllProperties,
 };

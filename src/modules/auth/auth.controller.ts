@@ -61,4 +61,7 @@ const issueRefreshToken = catchAsync(
   },
 );
 
-export const authController = { loginUser, issueRefreshToken };
+export const authController = {
+  loginUser,
+  issueRefreshToken,
+};
