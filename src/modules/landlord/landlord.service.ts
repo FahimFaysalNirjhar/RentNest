@@ -116,8 +116,36 @@ const deleteProperty = async (userId: string, propertyId: string) => {
   });
 };
 
+const getRentalRequests = async (landlordId: string) => {
+  const requests = await prisma.rentalRequest.findMany({
+    where: {
+      property: {
+        landlordId,
+      },
+    },
+    include: {
+      tenant: {
+        omit: {
+          password: true,
+        },
+      },
+      property: {
+        include: {
+          category: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return requests;
+};
+
 export const landlordService = {
   createProperties,
   updateProperty,
   deleteProperty,
+  getRentalRequests,
 };

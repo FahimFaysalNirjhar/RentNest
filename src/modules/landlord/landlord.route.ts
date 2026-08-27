@@ -23,4 +23,12 @@ router.delete(
   landlordController.deleteProperty,
 );
 
+// rental request api
+
+router.get(
+  "/requests",
+  auth(UserRole.LANDLORD),
+  landlordController.getRentalRequests,
+);
+
 export const landlordRouter = router;

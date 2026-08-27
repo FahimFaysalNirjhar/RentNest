@@ -57,8 +57,24 @@ const deleteProperty = catchAsync(
   },
 );
 
+const getRentalRequests = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const landlord = req.user?.id as string;
+
+    const result = await landlordService.getRentalRequests(landlord);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "Rental requests retrieved successfully",
+      data: result,
+    });
+  },
+);
+
 export const landlordController = {
   createProperties,
   updateProperty,
   deleteProperty,
+  getRentalRequests,
 };
