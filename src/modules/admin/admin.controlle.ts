@@ -76,10 +76,26 @@ const deleteCategory = catchAsync(
   },
 );
 
+// rental request related apis
+
+const getAllRentalRequest = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const result = await adminService.getAllRentalRequest();
+
+    sendResponse(res, {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "Rental Requests retrieved successfully",
+      data: result,
+    });
+  },
+);
+
 export const adminController = {
   getAllUsers,
   updateUserStatus,
   createCategory,
   updateCategory,
   deleteCategory,
+  getAllRentalRequest,
 };

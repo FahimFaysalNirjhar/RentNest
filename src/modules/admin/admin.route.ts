@@ -36,4 +36,12 @@ router.delete(
   adminController.deleteCategory,
 );
 
+// rental request related api
+
+router.get(
+  "/rentals",
+  auth(UserRole.ADMIN),
+  adminController.getAllRentalRequest,
+);
+
 export const adminRouter = router;

@@ -177,10 +177,38 @@ const deleteCategory = async (id: string) => {
   });
 };
 
+const getAllRentalRequest = async () => {
+  const rentalRequest = await prisma.rentalRequest.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      tenant: {
+        omit: {
+          password: true,
+        },
+      },
+      property: {
+        include: {
+          landlord: {
+            omit: {
+              password: true,
+            },
+          },
+        },
+      },
+      payment: true,
+    },
+  });
+
+  return rentalRequest;
+};
+
 export const adminService = {
   getAllUsers,
   updateUserStatus,
   createCategory,
   updateCategory,
   deleteCategory,
+  getAllRentalRequest,
 };
