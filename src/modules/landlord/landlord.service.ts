@@ -163,12 +163,12 @@ const updateRentalRequestStatus = async (
     throw new Error("Rental request not found.");
   }
 
-  if (
-    payload.status !== RentalRequestStatus.ACCEPTED &&
-    payload.status !== RentalRequestStatus.CANCELLED
-  ) {
-    throw new Error("Status can only be ACCEPTED or REJECTED.");
-  }
+  // if (
+  //   payload.status !== RentalRequestStatus.ACCEPTED &&
+  //   payload.status !== RentalRequestStatus.CANCELLED
+  // ) {
+  //   throw new Error("Status can only be ACCEPTED or REJECTED.");
+  // }
 
   const updateRequest = await prisma.rentalRequest.update({
     where: {
