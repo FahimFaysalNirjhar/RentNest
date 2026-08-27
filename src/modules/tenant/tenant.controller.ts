@@ -20,4 +20,18 @@ const createRequest = catchAsync(
   },
 );
 
-export const tenantController = { createRequest };
+const getAllRequest = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id as string;
+    const result = await tenantService.getAllRequest(userId);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "Requests retrieved successfully",
+      data: result,
+    });
+  },
+);
+
+export const tenantController = { createRequest, getAllRequest };

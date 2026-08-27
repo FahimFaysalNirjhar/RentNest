@@ -7,4 +7,6 @@ const router = Router();
 
 router.post("/", auth(UserRole.TENANT), tenantController.createRequest);
 
+router.get("/", auth(UserRole.TENANT), tenantController.getAllRequest);
+
 export const tenantRouter = router;
