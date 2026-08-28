@@ -11,6 +11,7 @@ import { categoryRouter } from "./modules/categories/category.route";
 import { landlordRouter } from "./modules/landlord/landlord.route";
 import { propertyRouter } from "./modules/properties/property.route";
 import { tenantRouter } from "./modules/tenant/tenant.route";
+import { paymentRouter } from "./modules/payment/payment.route";
 
 const app: Application = express();
 
@@ -40,6 +41,7 @@ app.use("/api/categories", categoryRouter);
 app.use("/api/landlord", landlordRouter);
 app.use("/api/properties", propertyRouter);
 app.use("/api/rentals", tenantRouter);
+app.use("/api/payments", paymentRouter);
 
 app.use(notFound);
 app.use(globalErrorHandler);
