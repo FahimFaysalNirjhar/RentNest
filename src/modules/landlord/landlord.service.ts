@@ -194,10 +194,45 @@ const updateRentalRequestStatus = async (
   return updateRequest;
 };
 
+const getPropertyReviews = async (landlordId: string, propertyId: string) => {
+  const property = await prisma.property.findFirst({
+    where: {
+      id: propertyId,
+      landlordId,
+    },
+  });
+
+  if (!property) {
+    throw new Error(
+      "Property not found or you are not authorized to view its reviews.",
+    );
+  }
+
+  const reviews = await prisma.review.findMany({
+    where: {
+      propertyId,
+    },
+    include: {
+      property: true,
+      tenant: {
+        omit: {
+          password: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return reviews;
+};
+
 export const landlordService = {
   createProperties,
   updateProperty,
   deleteProperty,
   getRentalRequests,
   updateRentalRequestStatus,
+  getPropertyReviews,
 };

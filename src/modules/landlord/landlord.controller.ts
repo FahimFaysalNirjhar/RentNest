@@ -93,10 +93,30 @@ const updateRentalRequestStatus = catchAsync(
   },
 );
 
+const getPropertyReviews = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const landlordId = req.user?.id as string;
+    const propertyId = req.params.id as string;
+
+    const reviews = await landlordService.getPropertyReviews(
+      landlordId,
+      propertyId,
+    );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "Property reviews retrieved successfully",
+      data: reviews,
+    });
+  },
+);
+
 export const landlordController = {
   createProperties,
   updateProperty,
   deleteProperty,
   getRentalRequests,
   updateRentalRequestStatus,
+  getPropertyReviews,
 };
