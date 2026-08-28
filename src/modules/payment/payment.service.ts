@@ -1,7 +1,9 @@
+import Stripe from "stripe";
 import { RentalRequestStatus } from "../../../generated/prisma/enums";
 import config from "../../config";
 import { prisma } from "../../lib/prisma";
 import { stripe } from "../../lib/stripe";
+import { handleCheckoutCompleted } from "./payment.utils";
 
 const createCheckoutSession = async (requestId: string) => {
   const paymentUrl = await prisma.$transaction(async (tx) => {
@@ -45,7 +47,7 @@ const createCheckoutSession = async (requestId: string) => {
         email: rentalRequest.tenant.email,
         name: rentalRequest.tenant.name,
         metadata: {
-          rentalRequest: rentalRequest.id,
+          rentalRequestId: rentalRequest.id,
         },
       });
 
@@ -103,6 +105,26 @@ const createCheckoutSession = async (requestId: string) => {
   };
 };
 
+const handleWebhook = async (payload: Buffer, signature: string) => {
+  const event = stripe.webhooks.constructEvent(
+    payload,
+    signature,
+    config.stripe_webhook_secret!,
+  );
+
+  switch (event.type) {
+    case "checkout.session.completed":
+      await handleCheckoutCompleted(
+        event.data.object as Stripe.Checkout.Session,
+      );
+      break;
+
+    default:
+      console.log(`Unhandled event: ${event.type}`);
+  }
+};
+
 export const paymentService = {
   createCheckoutSession,
+  handleWebhook,
 };

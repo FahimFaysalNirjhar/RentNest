@@ -12,6 +12,7 @@ import { landlordRouter } from "./modules/landlord/landlord.route";
 import { propertyRouter } from "./modules/properties/property.route";
 import { tenantRouter } from "./modules/tenant/tenant.route";
 import { paymentRouter } from "./modules/payment/payment.route";
+import { paymentController } from "./modules/payment/payment.controller";
 
 const app: Application = express();
 
@@ -20,6 +21,12 @@ app.use(
     origin: config.app_url,
     credentials: true,
   }),
+);
+
+app.post(
+  "/api/payments/webhook",
+  express.raw({ type: "application/json" }),
+  paymentController.handleWebhook,
 );
 
 app.use(express.json());
