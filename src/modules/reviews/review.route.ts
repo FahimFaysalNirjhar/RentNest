@@ -7,4 +7,6 @@ const router = Router();
 
 router.post("/", auth(UserRole.TENANT), reviewController.createReview);
 
+router.get("/", auth(UserRole.TENANT), reviewController.getAllReviews);
+
 export const reviewRouter = router;
