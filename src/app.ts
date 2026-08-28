@@ -56,3 +56,5 @@ app.use(notFound);
 app.use(globalErrorHandler);
 
 export default app;
+
+// https://documenter.getpostman.com/view/54926491/2sBYAuSBUj
