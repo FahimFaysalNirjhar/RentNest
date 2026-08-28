@@ -151,8 +151,34 @@ const getPaymentHistory = async (tenantId: string) => {
   return payments;
 };
 
+const getSinglePaymentHistory = async (paymentId: string, tenantId: string) => {
+  const payment = await prisma.payment.findUniqueOrThrow({
+    where: {
+      id: paymentId,
+      rentalRequest: {
+        tenantId,
+      },
+    },
+    include: {
+      rentalRequest: {
+        include: {
+          property: true,
+          tenant: {
+            omit: {
+              password: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return payment;
+};
+
 export const paymentService = {
   createCheckoutSession,
   handleWebhook,
   getPaymentHistory,
+  getSinglePaymentHistory,
 };

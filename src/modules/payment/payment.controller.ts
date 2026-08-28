@@ -49,8 +49,25 @@ const getPaymentHistory = catchAsync(
   },
 );
 
+const getSinglePaymentHistory = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id as string;
+    const tenantIdId = req.user?.id as string;
+
+    const result = await paymentService.getSinglePaymentHistory(id, tenantIdId);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: 200,
+      message: "Payment details retrieved successfully",
+      data: result,
+    });
+  },
+);
+
 export const paymentController = {
   createCheckoutSession,
   handleWebhook,
   getPaymentHistory,
+  getSinglePaymentHistory,
 };
