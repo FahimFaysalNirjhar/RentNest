@@ -8,9 +8,7 @@ RentNest is a backend API for a rental property marketplace where tenants can fi
 
 ## 🚀 Live API
 
-**Backend API:** `YOUR_DEPLOYED_API_URL`
-
-> Replace `YOUR_DEPLOYED_API_URL` with your deployed backend URL.
+**Backend API:** `https://rent-nest-neon-ten.vercel.app`
 
 ---
 
