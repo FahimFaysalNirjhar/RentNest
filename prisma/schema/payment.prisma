@@ -12,6 +12,7 @@ model Payment {
   updatedAt             DateTime      @updatedAt
 
   @@index([status])
+  @@index([rentalRequestId])
   @@index([stripePaymentIntentId])
   @@map("payments")
 }
