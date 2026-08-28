@@ -13,6 +13,7 @@ import { propertyRouter } from "./modules/properties/property.route";
 import { tenantRouter } from "./modules/tenant/tenant.route";
 import { paymentRouter } from "./modules/payment/payment.route";
 import { paymentController } from "./modules/payment/payment.controller";
+import { reviewRouter } from "./modules/reviews/review.route";
 
 const app: Application = express();
 
@@ -49,6 +50,7 @@ app.use("/api/landlord", landlordRouter);
 app.use("/api/properties", propertyRouter);
 app.use("/api/rentals", tenantRouter);
 app.use("/api/payments", paymentRouter);
+app.use("/api/reviews", reviewRouter);
 
 app.use(notFound);
 app.use(globalErrorHandler);
