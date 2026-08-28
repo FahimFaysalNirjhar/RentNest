@@ -9,4 +9,6 @@ router.post("/", auth(UserRole.TENANT), reviewController.createReview);
 
 router.get("/", auth(UserRole.TENANT), reviewController.getAllReviews);
 
+router.get("/:id", auth(UserRole.TENANT), reviewController.getSingleReviews);
+
 export const reviewRouter = router;

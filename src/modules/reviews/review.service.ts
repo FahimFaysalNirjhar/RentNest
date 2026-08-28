@@ -80,7 +80,26 @@ const getAllReviews = async () => {
   return reviews;
 };
 
+const getSingleReviews = async (id: string) => {
+  const review = await prisma.review.findUniqueOrThrow({
+    where: {
+      id,
+    },
+    include: {
+      tenant: {
+        omit: {
+          password: true,
+        },
+      },
+      property: true,
+    },
+  });
+
+  return review;
+};
+
 export const reviewService = {
   createReview,
   getAllReviews,
+  getSingleReviews,
 };

@@ -33,7 +33,23 @@ const getAllReviews = catchAsync(
   },
 );
 
+const getSingleReviews = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id as string;
+
+    const review = await reviewService.getSingleReviews(id);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "Review retrieved successfully",
+      data: review,
+    });
+  },
+);
+
 export const reviewController = {
   createReview,
   getAllReviews,
+  getSingleReviews,
 };
