@@ -34,7 +34,23 @@ const handleWebhook = catchAsync(
   },
 );
 
+const getPaymentHistory = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const tenantId = req.user?.id as string;
+
+    const result = await paymentService.getPaymentHistory(tenantId);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "Payment history retrieved successfully",
+      data: result,
+    });
+  },
+);
+
 export const paymentController = {
   createCheckoutSession,
   handleWebhook,
+  getPaymentHistory,
 };

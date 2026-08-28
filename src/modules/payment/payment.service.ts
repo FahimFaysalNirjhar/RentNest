@@ -124,7 +124,35 @@ const handleWebhook = async (payload: Buffer, signature: string) => {
   }
 };
 
+const getPaymentHistory = async (tenantId: string) => {
+  const payments = await prisma.payment.findMany({
+    where: {
+      rentalRequest: {
+        tenantId,
+      },
+    },
+    include: {
+      rentalRequest: {
+        include: {
+          property: true,
+          tenant: {
+            omit: {
+              password: true,
+            },
+          },
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return payments;
+};
+
 export const paymentService = {
   createCheckoutSession,
   handleWebhook,
+  getPaymentHistory,
 };
