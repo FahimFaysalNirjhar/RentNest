@@ -31,7 +31,11 @@ router.get(
   landlordController.getRentalRequests,
 );
 
-router.patch("/requests/:id", landlordController.updateRentalRequestStatus);
+router.patch(
+  "/requests/:id",
+  auth(UserRole.LANDLORD),
+  landlordController.updateRentalRequestStatus,
+);
 
 router.get(
   "/properties/:id/reviews",
